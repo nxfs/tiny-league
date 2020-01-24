@@ -1,5 +1,6 @@
 def pause
-	gets
+        gets()
+        # sleep(1)
 end
 
 def print_score(score, ht, comment=nil)
@@ -16,7 +17,7 @@ def game(teams, home_advantage)
 	ht = 0
 	(1..mins).each do |min|
 		attacking_team = Random.rand * (teams[0].midfield + teams[1].midfield + home_advantage) < (teams[0].midfield + home_advantage) ? 0 : 1
-	  	coeff = 40 * teams[1 - attacking_team].defense / teams[attacking_team].attack
+	  	coeff = 38 * teams[1 - attacking_team].defense / teams[attacking_team].attack
 	  	goal = Random.rand < (1.0 / coeff)
     	if goal
       		score[ht][attacking_team] = score[ht][attacking_team] + 1
@@ -116,7 +117,7 @@ def add_team(name, midfield, attack, defense)
 end
 
 teams = []
-teams << add_team("YB", 65, 70, 70)
+teams << add_team("YB", 65, 65, 70)
 teams << add_team("Basel", 60, 70, 70)
 teams << add_team("Zurich", 50, 50, 50)
 teams << add_team("St Gall", 50, 50, 50)
@@ -126,4 +127,4 @@ teams << add_team("Sion", 45, 45, 45)
 teams << add_team("Servette", 40, 50, 40)
 teams << add_team("Thun", 40, 40, 50)
 teams << add_team("Xamax", 35, 45, 55)
-league(teams, 4, 20)
+league(teams, 4, 15)
