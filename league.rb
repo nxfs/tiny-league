@@ -1,5 +1,5 @@
 def pause
-	 # gets()
+	 gets()
 	 # sleep(1)
 end
 
@@ -19,7 +19,7 @@ def game(teams, home_advantage)
 		attacking_team = Random.rand * (teams[0].midfield + teams[1].midfield + home_advantage) < (teams[0].midfield + home_advantage) ? 0 : 1
 	  	coeff = 38 * teams[1 - attacking_team].defense / teams[attacking_team].attack
 		goal = Random.rand < (1.0 / coeff)
-		if goal
+                if goal
 			score[ht][attacking_team] = score[ht][attacking_team] + 1
 			print_score(score, ht, "#{min}'")
 			pause
@@ -67,7 +67,7 @@ def league(teams, rounds, home_advantage)
 			puts "=============================="
 			(0...teams.count / 2).each do |game|
 				playing_teams = []
-				shift = game == 0 ? (round + day) % 2 : 0
+				shift = game == 0 ? (round + day) % 2 : round % 2
 				if (game == 0)
 					playing_teams[shift] = teams[0]
 				else
@@ -117,14 +117,14 @@ def add_team(name, midfield, attack, defense)
 end
 
 teams = []
-teams << add_team("YB", 65, 65, 70)
+teams << add_team("YB", 70, 65, 70)
 teams << add_team("Basel", 60, 70, 70)
-teams << add_team("Zurich", 50, 50, 50)
-teams << add_team("St Gall", 50, 50, 50)
-teams << add_team("Luzern", 40, 50, 50)
-teams << add_team("Lugano", 45, 50, 50)
+teams << add_team("Zurich", 47, 50, 47)
+teams << add_team("St Gall", 53, 53, 53)
+teams << add_team("Luzern", 40, 48, 47)
+teams << add_team("Lugano", 43, 43, 50)
 teams << add_team("Sion", 45, 45, 45)
-teams << add_team("Servette", 40, 50, 40)
+teams << add_team("Servette", 58, 50, 43)
 teams << add_team("Thun", 40, 40, 50)
-teams << add_team("Xamax", 35, 45, 55)
+teams << add_team("Xamax", 37, 45, 52)
 league(teams, 4, 20)
