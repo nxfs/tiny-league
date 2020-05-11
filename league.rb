@@ -33,6 +33,9 @@ def game(teams, home_advantage)
 		end
 	end
 	print_score(score, ht, "FT")
+    teams[0].h2h[teams[1].name] = "#{score[1][0]}:#{score[1][1]}(H) " + teams[0].h2h[teams[1].name]
+    teams[1].h2h[teams[0].name] = "#{score[1][1]}:#{score[1][0]}(A) " + teams[1].h2h[teams[0].name]
+
 	pause
 	score[1]
 end
@@ -76,7 +79,18 @@ def league(teams, rounds, home_advantage)
 				playing_teams[1 - shift] = teams[(teams.count - 1 - game * 2 + day ) % (teams.count - 1) + 1]
 				puts ""
 				puts "#{playing_teams[0].name}:#{playing_teams[1].name}"
-				pause
+				if (round > 1 || day > 0)
+					lookback = 5
+					if (round > 1 || day >= lookback)
+						puts "form: #{playing_teams[0].history[-lookback..-1].reverse}:#{playing_teams[1].history[-lookback..-1].reverse}"
+					else
+						puts "form: #{playing_teams[0].history.reverse}:#{playing_teams[1].history.reverse}"
+					end
+				end
+				if (round > 1)
+					puts "h2h: #{playing_teams[0].h2h[playing_teams[1].name]}"
+				end
+ 				pause
 				score = game([playing_teams[0], playing_teams[1]], home_advantage)
 				if (score[0] > score[1])
 					winner = 0
@@ -89,11 +103,15 @@ def league(teams, rounds, home_advantage)
 					playing_teams[winner].pts = playing_teams[winner].pts + 3
 					playing_teams[winner].w = playing_teams[winner].w + 1
 					playing_teams[1 - winner].l = playing_teams[1 - winner].l + 1
+					playing_teams[winner].history << 'w'
+					playing_teams[1 - winner].history << 'l'
 				else
 				 	playing_teams[0].pts = playing_teams[0].pts + 1
 				 	playing_teams[1].pts = playing_teams[1].pts + 1
 					playing_teams[0].d = playing_teams[0].d + 1
 					playing_teams[1].d = playing_teams[1].d + 1
+					playing_teams[0].history << 'd'
+					playing_teams[1].history << 'd'
 				end
 				playing_teams[0].bp = playing_teams[0].bp + score[0]
 				playing_teams[1].bp = playing_teams[1].bp + score[1]
@@ -113,8 +131,11 @@ def add_team(name, midfield, attack, defense)
 	t.midfield = midfield
 	t.attack = attack
 	t.defense = defense
+    t.history = ""
+    t.h2h = Hash.new{ |hash, key| hash[key] = "" }
 	t
 end
+
 
 teams = []
 teams << add_team("YB", 70, 65, 70)
