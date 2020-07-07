@@ -138,14 +138,14 @@ end
 
 
 teams = []
-teams << add_team("YB", 70, 65, 70)
-teams << add_team("Basel", 60, 70, 70)
+teams << add_team("YB", 66, 65, 66)
+teams << add_team("Basel", 60, 66, 70)
 teams << add_team("Zurich", 47, 50, 47)
-teams << add_team("St Gall", 53, 53, 53)
+teams << add_team("St Gall", 62, 62, 58)
 teams << add_team("Luzern", 40, 48, 47)
 teams << add_team("Lugano", 43, 43, 50)
 teams << add_team("Sion", 45, 45, 45)
-teams << add_team("Servette", 58, 50, 43)
+teams << add_team("Servette", 58, 58, 50)
 teams << add_team("Thun", 40, 40, 50)
 teams << add_team("Xamax", 37, 45, 52)
 league(teams, 4, 20)
