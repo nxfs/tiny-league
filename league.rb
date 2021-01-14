@@ -1,6 +1,6 @@
 def pause
-	 gets()
-	 # sleep(1)
+	gets()
+	#sleep(1)
 end
 
 def print_score(score, ht, comment=nil)
@@ -48,7 +48,7 @@ def print_table(teams)
 		diff = t2.bp - t1.bp if diff == 0
 		diff
 	end.each do |t|
-		puts "#{sprintf("%2d", rank)}. #{sprintf("%10s", t.name)}   #{sprintf("%2d", t.w+t.d+t.l)}  #{sprintf("%2d", t.w)}-#{sprintf("%2d", t.d)}-#{sprintf("%2d", t.l)} #{sprintf("%2d", t.bp)}-#{sprintf("%2d", t.bc)} #{t.pts}"
+		puts "#{sprintf("%2d", rank)}. #{sprintf("%12s", t.name)}   #{sprintf("%2d", t.w+t.d+t.l)}  #{sprintf("%2d", t.w)}-#{sprintf("%2d", t.d)}-#{sprintf("%2d", t.l)} #{sprintf("%2d", t.bp)}-#{sprintf("%2d", t.bc)} #{t.pts}"
 		rank = rank + 1
 	end
 end
@@ -128,24 +128,37 @@ require 'ostruct'
 def add_team(name, midfield, attack, defense)
 	t = OpenStruct.new
 	t.name = name
-	t.midfield = midfield
-	t.attack = attack
-	t.defense = defense
+	t.midfield = midfield + Random.rand * 10 - 5
+	t.attack = attack + Random.rand * 10 - 5
+	t.defense = defense + Random.rand * 10 - 5
     t.history = ""
     t.h2h = Hash.new{ |hash, key| hash[key] = "" }
 	t
 end
 
 
+# teams = []
+# teams << add_team("YB", 66, 65, 66)
+# teams << add_team("Basel", 60, 66, 70)
+# teams << add_team("Zurich", 47, 50, 47)
+# teams << add_team("St Gall", 62, 62, 58)
+# teams << add_team("Luzern", 40, 48, 47)
+# teams << add_team("Lugano", 43, 43, 50)
+# teams << add_team("Sion", 45, 45, 45)
+# teams << add_team("Servette", 58, 58, 50)
+# teams << add_team("Thun", 40, 40, 50)
+# teams << add_team("Xamax", 37, 45, 52)
+# league(teams, 4, 20)
+
 teams = []
-teams << add_team("YB", 66, 65, 66)
-teams << add_team("Basel", 60, 66, 70)
-teams << add_team("Zurich", 47, 50, 47)
-teams << add_team("St Gall", 62, 62, 58)
-teams << add_team("Luzern", 40, 48, 47)
-teams << add_team("Lugano", 43, 43, 50)
-teams << add_team("Sion", 45, 45, 45)
-teams << add_team("Servette", 58, 58, 50)
-teams << add_team("Thun", 40, 40, 50)
-teams << add_team("Xamax", 37, 45, 52)
+teams << add_team("GC", 66, 65, 60)
+teams << add_team("Thun", 65, 60, 60)
+teams << add_team("Xamax", 58, 62, 62)
+teams << add_team("Aarau", 58, 58, 55)
+teams << add_team("Winterthur", 50, 53, 53)
+teams << add_team("Wil", 48, 53, 53)
+teams << add_team("Kriens", 43, 43, 50)
+teams << add_team("SLO", 45, 49, 49)
+teams << add_team("Schaffhausen", 40, 43, 47)
+teams << add_team("Chiasso", 37, 45, 47)
 league(teams, 4, 20)
